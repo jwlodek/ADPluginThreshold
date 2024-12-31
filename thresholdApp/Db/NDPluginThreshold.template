@@ -1,0 +1,56 @@
+# Author: 
+
+# include the base driver template file
+include "NDPluginBase.template"
+
+
+##################################################################
+# Define all of your PV records here in the following form:
+#
+# record(RECORD_TYPE, "$(P)$(R)PVName"){
+#   field(DTYP, "data type")
+#   field(INP/OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))PV_NAME")
+#   field(VAL, "value")
+#   field(SCAN, "I/O Intr")
+# }
+#
+# Consult other .template files for guides on how to write specific PVs
+#
+# The PV_NAME at the end of the INP or OUT field of the record is the 
+# PVString defined in NDPluginThreshold.h.
+#
+# example: #define NDPluginThresholdPVNameString "PV_NAME"
+#
+##################################################################
+
+record(bi, "$(P)$(R)ThresholdStatus_RBV"){
+    field(DTYP, "asynInt32")
+    field(INP, "@asyn($(PORT),$(ADDR),$(TIMEOUT))THR_STATUS")
+    field(ZNAM, "No Error")
+    field(ONAM, "Error")
+    field(VAL, "0")
+    field(SCAN, "I/O Intr")
+}
+
+record(ai, "$(P)$(R)NumPixelsThresholded_RBV") {
+    field(DTYP, "asynInt32")
+    field(SCAN, "I/O Intr")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))THR_NUM_PIX_THRESH")
+    field(VAL, "0")
+}
+
+
+record(ao, "$(P)$(R)ThresholdValue") {
+    field(DTYP, "asynInt32")
+    field(PINI, "YES")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))THR_VALUE")
+    field(VAL, "0")
+}
+
+
+record(ai, "$(P)$(R)ThresholdValue_RBV") {
+    field(DTYP, "asynInt32")
+    field(SCAN, "I/O Intr")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))THR_VALUE")
+    field(VAL, "0")
+}
